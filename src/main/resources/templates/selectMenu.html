@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns=:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>予約システム | メニュー検索画面</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header>
+        <h1>
+            <span th:text="${username}">username</span>さん、こんにちは！
+        </h1>
+    </header>
+    <main>
+        <p>メニューを選択してください</p>
+        	<h2>メニュー一覧</h2>
+
+            <table class="menu-list">
+                <tr>
+                    <th>メニュー名</th><th>詳細</th><th>時間</th><th>料金</th><th>ボタン</th>
+                </tr>
+
+                <tr th:each="menu : ${menuList}">
+                    <td th:text="${menu.menuName}"></td>
+                    <td th:text="${menu.menuDetail}"></td>
+                    <td th:text="${menu.menuDuration}"></td>
+                    <td th:text="${menu.menuCurrentFee}"></td>
+                    <td>
+                        <form th:action="@{/set-calendar}" method="POST">
+                            <input type="hidden" id="username" name="username" value="まなちゃ">
+                            <input type="hidden" name="menuId" th:value="${menu.menuId}">
+                            <button type="submit">このメニューを選択</button>
+                        </form>
+                    </td>
+                </tr>
+
+            </table>
+    </main>
+    <footer>
+    </footer>
+</body>
+</html>
