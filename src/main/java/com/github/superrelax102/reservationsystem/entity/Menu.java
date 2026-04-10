@@ -1,4 +1,4 @@
-package com.github.superrelax102.reservation_system.entity;
+package com.github.superrelax102.reservationsystem.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

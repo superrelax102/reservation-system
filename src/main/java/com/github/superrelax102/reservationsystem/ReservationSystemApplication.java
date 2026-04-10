@@ -1,4 +1,4 @@
-package com.github.superrelax102.reservation_system;
+package com.github.superrelax102.reservationsystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

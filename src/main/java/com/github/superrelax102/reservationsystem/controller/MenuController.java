@@ -1,9 +1,9 @@
-package com.github.superrelax102.reservation_system.controller;
+package com.github.superrelax102.reservationsystem.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.superrelax102.reservation_system.entity.Menu;
+import com.github.superrelax102.reservationsystem.entity.Menu;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;

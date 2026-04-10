@@ -1,4 +1,4 @@
-package com.github.superrelax102.reservation_system.controller;
+package com.github.superrelax102.reservationsystem.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
