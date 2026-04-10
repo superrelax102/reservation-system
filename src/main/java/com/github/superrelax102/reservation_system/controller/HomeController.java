@@ -5,16 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
-public class ReservationController {
-
-    @PostMapping("/set-calendar")
-    public String setCalendar(@RequestParam String username, long menuId, Model model) {
+public class HomeController {
+    @PostMapping("/usertop")
+    public String userTop(@RequestParam String username, Model model) {
         model.addAttribute("username", username);
-        model.addAttribute("menuId", menuId);
-        
-        return "setCalendar";
+        return "top";
     }
-    
 }
