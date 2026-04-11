@@ -2,7 +2,7 @@ package com.github.superrelax102.reservationsystem.controller;
 
 import java.util.List;
 
-import com.github.superrelax102.reservationsystem.entity.Menu;
+import com.github.superrelax102.reservationsystem.dto.MenuResponseDto;
 import com.github.superrelax102.reservationsystem.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ public class MenuController {
     public String selectMenu(@RequestParam String username, Model model) {
         model.addAttribute("username", username);
         
-		List<Menu> list = menuService.getAllMenus();
+		List<MenuResponseDto> list = menuService.getAllMenus();
 		
 		model.addAttribute("menuList", list); 
         return "selectMenu";

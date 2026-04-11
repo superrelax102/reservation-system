@@ -24,8 +24,8 @@
                 <tr th:each="menu : ${menuList}">
                     <td th:text="${menu.name}"></td>
                     <td th:text="${menu.detail}"></td>
-                    <td th:text="${menu.duration}"></td>
-                    <td th:text="${menu.currentfee}"></td>
+                    <td th:text="${menu.formattedDuration}"></td>
+                    <td th:text="${menu.formattedPrice}"></td>
                     <td>
                         <form th:action="@{/set-calendar}" method="POST">
                             <input type="hidden" id="username" name="username" value="まなちゃ">
