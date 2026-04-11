@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ReservationController {
 
     @PostMapping("/set-calendar")
-    public String setCalendar(@RequestParam String username, long menuId, Model model) {
+    public String setCalendar(@RequestParam String username, long id, Model model) {
         model.addAttribute("username", username);
-        model.addAttribute("menuId", menuId);
+        model.addAttribute("id", id);
         
         return "setCalendar";
     }

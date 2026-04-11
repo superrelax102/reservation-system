@@ -22,14 +22,14 @@
                 </tr>
 
                 <tr th:each="menu : ${menuList}">
-                    <td th:text="${menu.menuName}"></td>
-                    <td th:text="${menu.menuDetail}"></td>
-                    <td th:text="${menu.menuDuration}"></td>
-                    <td th:text="${menu.menuCurrentFee}"></td>
+                    <td th:text="${menu.name}"></td>
+                    <td th:text="${menu.detail}"></td>
+                    <td th:text="${menu.duration}"></td>
+                    <td th:text="${menu.currentfee}"></td>
                     <td>
                         <form th:action="@{/set-calendar}" method="POST">
                             <input type="hidden" id="username" name="username" value="まなちゃ">
-                            <input type="hidden" name="menuId" th:value="${menu.menuId}">
+                            <input type="hidden" name="id" th:value="${menu.id}">
                             <button type="submit">このメニューを選択</button>
                         </form>
                     </td>
