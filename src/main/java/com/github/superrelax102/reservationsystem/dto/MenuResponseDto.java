@@ -13,6 +13,8 @@ public class MenuResponseDto {
     private Long id;
     private String name;
     private String detail;
+    private Integer duration; 
+    private Integer price;
     private String formattedDuration;
     private String formattedPrice;
 }

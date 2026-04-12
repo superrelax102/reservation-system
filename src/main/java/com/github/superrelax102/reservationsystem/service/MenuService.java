@@ -27,6 +27,8 @@ public class MenuService {
                 .id(entity.getId())
                 .name(entity.getName())
                 .detail(entity.getDetail())
+                .price(entity.getCurrentfee())
+                .duration(entity.getDuration())
                 .formattedPrice(String.format("%,d円", entity.getCurrentfee()))
                 .formattedDuration(formatDuration(entity.getDuration()))
                 .build();
@@ -48,5 +50,11 @@ public class MenuService {
         }
         dispDuretion = dispDuretionH + dispDuretionM;
         return dispDuretion;
+    }
+
+    public MenuResponseDto getMenuById(Long id) {
+        return menuRepository.findById(id)
+                .map(this::convertToDto)
+                .orElseThrow(() -> new RuntimeException("Menu not found"));
     }
 }

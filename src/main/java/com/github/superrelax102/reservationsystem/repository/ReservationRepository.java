@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
     // 指定した期間（startからendまで）の予約を、開始日時の昇順で取得する
-    List<Reservation> findByStartAtBetweenOrderByStartAtAsc(LocalDateTime start, LocalDateTime end);
+    List<Reservation> findByStartatBetweenOrderByStartatAsc(LocalDateTime start, LocalDateTime end);
 }

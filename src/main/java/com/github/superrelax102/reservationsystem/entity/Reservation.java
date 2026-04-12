@@ -18,13 +18,13 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime startAt;
-    private LocalDateTime endAt;
+    private LocalDateTime startat;
+    private LocalDateTime endat;
     private String status;
-    private Long userId;
-    private Long staffId;
-    private Long menuId;
+    private Long userid;
+    private Long staffid;
+    private Long menuid;
     private int billingfee;
-    private LocalDateTime createdAt;
-    private boolean isDeleted;
+    private LocalDateTime createdat;
+    private boolean isdeleted;
 }

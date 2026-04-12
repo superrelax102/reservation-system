@@ -18,12 +18,13 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @PostMapping("/set-calendar")
-    public String setCalendar(@RequestParam String username, long id, Model model) {
+    public String setCalendar(@RequestParam String username, Long menuid, Model model) {
         model.addAttribute("username", username);
-        model.addAttribute("id", id);
+        model.addAttribute("id", menuid);
+    
 
         LocalDate today = LocalDate.now();
-        List<CalendarDayDto> calendar = reservationService.getCalendar(today);
+        List<CalendarDayDto> calendar = reservationService.getCalendar(today, menuid);
         model.addAttribute("calendar", calendar);
         
         return "setCalendar";
