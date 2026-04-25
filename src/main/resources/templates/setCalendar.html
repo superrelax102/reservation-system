@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns=:th="https://www.thymeleaf.org">
+<html lang="ja" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,45 +8,48 @@
 </head>
 <body>
     <header>
-        <h1>
-            <span th:text="${username}">username</span>さん、こんにちは！
-        </h1>
-        <h2>
-            <span th:text="${menuId}">menuId</span>を選択中
-        </h2>
+        <h1><span th:text="${username}">username</span>さん、こんにちは！</h1>
+        <p><span th:text="${menuname}">メニュー名</span>の予約日時を選んでください</p>
     </header>
-    <table border="1">
+
+    <table class="menu-list">
         <thead>
             <tr>
                 <th>日付</th>
-                <th>予約枠</th>
+                <th>予約可能な時間枠</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="day : ${calendar}">
-                <td nowrap>
-                    <span th:text="${#temporals.format(day.date, 'MM/dd')}"></span>
-                    <!-- (<span th:text="${day.dayOfWeek}"></span>) -->
+                <td>
+                    <strong th:text="${#temporals.format(day.date, 'MM/dd')}"></strong>
                 </td>
                 <td>
-                    <div style="display: flex; gap: 5px;">
+                    <div class="slot-container">
                         <div th:each="slot : ${day.slots}" 
-                            style="border: 
-                            1px solid #ccc; padding: 5px; text-align: center;">
+                             class="slot-item" 
+                             th:classappend="${!slot.isAvailable} ? 'unavailable'">
+                            
                             <small th:text="${slot.startTime}"></small><br>
-                            <span th:text="${slot.statusLabel}"></span>
+                            
+                            <div th:if="${slot.isAvailable}">
+                                <form th:action="@{/confirm-reservation}" method="POST">
+                                    <input type="hidden" name="username" th:value="${username}">
+                                    <input type="hidden" name="date" th:value="${day.date}">
+                                    <input type="hidden" name="time" th:value="${slot.startTime}">
+                                    <input type="hidden" name="menuid" th:value="${menuid}">
+                                    <button type="submit">○</button>
+                                </form>
+                            </div>
+                            
+                            <div th:if="${!slot.isAvailable}">
+                                <span>×</span>
+                            </div>
                         </div>
                     </div>
                 </td>
             </tr>
         </tbody>
     </table>
-
-    <footer class="bottom-nav">
-        <div class="summary">
-            <p>選択中：<span>4月6日 10:00〜</span></p>
-        </div>
-        <button class="next-btn">次へ進む</button>
-    </footer>
 </body>
 </html>

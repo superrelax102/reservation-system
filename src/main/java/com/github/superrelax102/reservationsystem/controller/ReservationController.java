@@ -1,9 +1,12 @@
 package com.github.superrelax102.reservationsystem.controller;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import com.github.superrelax102.reservationsystem.dto.CalendarDayDto;
+import com.github.superrelax102.reservationsystem.dto.MenuResponseDto;
+import com.github.superrelax102.reservationsystem.service.MenuService;
 import com.github.superrelax102.reservationsystem.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,15 +15,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+
 @Controller
 @RequiredArgsConstructor
 public class ReservationController {
     private final ReservationService reservationService;
+    private final MenuService menuService;
 
     @PostMapping("/set-calendar")
     public String setCalendar(@RequestParam String username, Long menuid, Model model) {
         model.addAttribute("username", username);
-        model.addAttribute("id", menuid);
+        model.addAttribute("menuid", menuid);
+
+        MenuResponseDto menuResponseDto = menuService.getMenuById(menuid);
+        
+        model.addAttribute("menuname", menuResponseDto.getName());
     
 
         LocalDate today = LocalDate.now();
@@ -29,5 +38,19 @@ public class ReservationController {
         
         return "setCalendar";
     }
+
+    @PostMapping("/confirm-reservation")
+    public String confirmReservation(@RequestParam String username, LocalDate date, LocalTime time, Long menuid, Model model) {
+        model.addAttribute("username", username);
+        model.addAttribute("date", date);
+        model.addAttribute("time", time);
+
+        MenuResponseDto menuResponseDto = menuService.getMenuById(menuid);
+        model.addAttribute("menuname", menuResponseDto.getName());
+
+
+        return "confirmReservation";
+    }
+    
     
 }
