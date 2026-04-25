@@ -11,8 +11,10 @@ import com.github.superrelax102.reservationsystem.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -52,6 +54,18 @@ public class ReservationController {
 
         return "confirmReservation";
     }
+
+    @PostMapping("/regist-reservation")
+    public String registReservation(@RequestParam String username, LocalDate date, LocalTime time, Long menuid, Model model) {
+        return "redirect:/complete-reservation";
+    }
+
+
+    @GetMapping("/complete-reservation")
+    public String completeReservation() {       
+        return "completeReservation";
+    }
+    
     
     
 }
