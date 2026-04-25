@@ -36,7 +36,11 @@
             <input type="hidden" name="time" th:value="${time}">
             <button type="submit" class="top-button">予約を確定する</button>
         </form>
-        
+        <form th:action="@{/set-calendar}" method="POST">
+            <input type="hidden" id="username" name="username" value="まなちゃ">
+            <input type="hidden" name="menuid" th:value="${menuid}">
+            <button type="submit" class="top-button-ret">日時選択に戻る</button>
+        </form>
     </div>
 </body>
 </html>

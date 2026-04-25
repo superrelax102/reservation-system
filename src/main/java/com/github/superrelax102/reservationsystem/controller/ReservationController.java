@@ -44,6 +44,7 @@ public class ReservationController {
         model.addAttribute("username", username);
         model.addAttribute("date", date);
         model.addAttribute("time", time);
+        model.addAttribute("menuid", menuid);
 
         MenuResponseDto menuResponseDto = menuService.getMenuById(menuid);
         model.addAttribute("menuname", menuResponseDto.getName());
