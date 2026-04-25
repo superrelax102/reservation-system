@@ -57,4 +57,16 @@ public class MenuService {
                 .map(this::convertToDto)
                 .orElseThrow(() -> new RuntimeException("Menu not found"));
     }
+
+    public int getDurationById(Long id) {
+        Menu menu = menuRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("指定されたメニューが見つかりません: " + id));
+        return menu.getDuration();
+    }
+
+    public int getbillingfeeById(Long id) {
+        Menu menu = menuRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("指定されたメニューが見つかりません: " + id));
+        return menu.getCurrentfee();
+    }
 }

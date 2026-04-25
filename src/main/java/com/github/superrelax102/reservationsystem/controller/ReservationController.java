@@ -57,6 +57,8 @@ public class ReservationController {
 
     @PostMapping("/regist-reservation")
     public String registReservation(@RequestParam String username, LocalDate date, LocalTime time, Long menuid, Model model) {
+        // Reservation r = new Reservation();
+        reservationService.saveReservation(username, date, time, menuid);
         return "redirect:/complete-reservation";
     }
 

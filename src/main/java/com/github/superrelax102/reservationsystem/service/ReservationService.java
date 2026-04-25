@@ -11,6 +11,7 @@ import com.github.superrelax102.reservationsystem.dto.CalendarSlotDto;
 import com.github.superrelax102.reservationsystem.dto.MenuResponseDto;
 import com.github.superrelax102.reservationsystem.entity.Reservation;
 import com.github.superrelax102.reservationsystem.repository.ReservationRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -82,6 +83,24 @@ public class ReservationService {
 
 
         return days;
+    }
+
+    @Transactional
+    public void saveReservation(String username, LocalDate date, LocalTime time, Long menuid) {
+        Reservation reservation = new Reservation();
+        // idを仮設定
+        reservation.setStartat(LocalDateTime.of(date, time));
+        reservation.setEndat(LocalDateTime.of(date, time.plusMinutes(menuService.getDurationById(menuid))));
+        reservation.setStatus("予約中");
+        reservation.setUserid((long)1);
+        reservation.setStaffid((long)1);
+        reservation.setMenuid(menuid);
+        reservation.setBillingfee(menuService.getbillingfeeById(menuid));
+        reservation.setCreatedat(LocalDateTime.now());
+        reservation.setIsdeleted(false);
+        
+        // リポジトリ経由で保存
+        reservationRepository.save(reservation);
     }
 
 
