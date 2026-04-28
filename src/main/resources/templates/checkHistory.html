@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns=:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>予約システム | 予約履歴画面</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header>
+        <h1>
+            <span th:text="${username}">username</span>さん、こんにちは！
+        </h1>
+    </header>
+    <main>
+        <p>予約履歴一覧を選択してください</p>
+        	<h2>予約履歴一覧</h2>
+
+            <table class="menu-list">
+                <tr>
+                    <th>予約ID</th><th>来店日時</th><th>状況</th><th>スタッフ名</th><th>メニュー名</th><th>料金</th><th>予約操作日時</th>
+                </tr>
+
+                <tr th:each="reservation : ${reservations}">
+                    <td th:text="${reservation.id}"></td>
+                    <td th:text="${reservation.displaydatetime}"></td>
+                    <td th:text="${reservation.status}"></td>
+                    <td th:text="${reservation.staffname}"></td>
+                    <td th:text="${reservation.menuname}"></td>
+                    <td th:text="${reservation.billingfee}"></td>
+                    <td th:text="${reservation.displaycreatedtime}"></td>
+                    <td>
+                        <button type="submit">選択</button>
+                        <!-- <form th:action="@{/set-calendar}" method="POST">
+                            <input type="hidden" id="username" name="username" value="まなちゃ">
+                            <input type="hidden" name="menuid" th:value="${menu.id}">
+                            <button type="submit">このメニューを選択</button>
+                        </form> -->
+                    </td>
+                </tr>
+
+            </table>
+            <form th:action="@{/usertop}" method="POST">
+                <input type="hidden" id="username" name="username" value="まなちゃ">
+                <button type="submit" class="top-button-ret">トップ画面に戻る</button>
+            </form>
+    </main>
+    <footer>
+    </footer>
+</body>
+</html>

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.github.superrelax102.reservationsystem.dto.CalendarDayDto;
 import com.github.superrelax102.reservationsystem.dto.MenuResponseDto;
+import com.github.superrelax102.reservationsystem.dto.ReservationResponseDto;
 import com.github.superrelax102.reservationsystem.service.MenuService;
 import com.github.superrelax102.reservationsystem.service.ReservationService;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
-
 
 @Controller
 @RequiredArgsConstructor
@@ -57,7 +55,6 @@ public class ReservationController {
 
     @PostMapping("/regist-reservation")
     public String registReservation(@RequestParam String username, LocalDate date, LocalTime time, Long menuid, Model model) {
-        // Reservation r = new Reservation();
         reservationService.saveReservation(username, date, time, menuid);
         return "redirect:/complete-reservation";
     }
@@ -67,7 +64,14 @@ public class ReservationController {
     public String completeReservation() {       
         return "completeReservation";
     }
-    
-    
-    
+
+    @PostMapping("/check-history")
+    public String postMethodName(@RequestParam String username, Long userid, Model model) {
+        model.addAttribute("username", username);
+        List<ReservationResponseDto> reservations = reservationService.getMyReservations(userid);
+        model.addAttribute("reservations", reservations);
+
+        
+        return "checkHistory";
+    }    
 }

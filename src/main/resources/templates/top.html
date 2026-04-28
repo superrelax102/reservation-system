@@ -14,11 +14,15 @@
     </header>
     <main>
         <form th:action="@{/select-menu}" method="POST">
-        <input type="hidden" id="username" name="username" value="まなちゃ">
-        <button class="top-button">新規予約</button>
+            <input type="hidden" id="username" name="username" value="まなちゃ">
+            <button class="top-button">新規予約</button>
+        </form>
 
-
-        <button class="top-button">予約履歴一覧</button>
+        <form th:action="@{/check-history}" method="POST">
+            <input type="hidden" id="username" name="username" value="まなちゃ">
+            <input type="hidden" id="userid" name="userid" value="1">
+            <button class="top-button">予約履歴一覧</button>
+        </form>
     </main>
     <footer>
     </footer>

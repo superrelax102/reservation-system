@@ -3,12 +3,14 @@ package com.github.superrelax102.reservationsystem.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.github.superrelax102.reservationsystem.dto.CalendarDayDto;
 import com.github.superrelax102.reservationsystem.dto.CalendarSlotDto;
 import com.github.superrelax102.reservationsystem.dto.MenuResponseDto;
+import com.github.superrelax102.reservationsystem.dto.ReservationResponseDto;
 import com.github.superrelax102.reservationsystem.entity.Reservation;
 import com.github.superrelax102.reservationsystem.repository.ReservationRepository;
 import jakarta.transaction.Transactional;
@@ -20,6 +22,9 @@ import org.springframework.stereotype.Service;
 public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final MenuService menuService;
+
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("M月d日");
+    private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm");
 
     public List<CalendarDayDto> getCalendar(LocalDate today, Long menuid) {
         // 検索範囲の決定
@@ -101,6 +106,37 @@ public class ReservationService {
         
         // リポジトリ経由で保存
         reservationRepository.save(reservation);
+    }
+
+    public List<ReservationResponseDto> getMyReservations(Long userid) {
+        List<Reservation> reservations = reservationRepository.findByUserid(userid);
+        List<ReservationResponseDto> dtos = reservations.stream()
+                                            .map(this::convertToDto)
+                                            .toList();
+        return dtos;
+    }
+
+    private ReservationResponseDto convertToDto(Reservation entity) {
+        ReservationResponseDto dto = new ReservationResponseDto();
+        dto.setId(entity.getId());
+        // LocalDateTimeからフォーマット
+        String reservationdate = entity.getStartat().format(DATE_FORMAT); // 〇月〇日
+        String startTime = entity.getStartat().format(TIME_FORMAT); // 〇〇:〇〇
+        String endTime = entity.getEndat().format(TIME_FORMAT); // ××:××
+        
+        // 結合してセット
+        dto.setDisplaydatetime(String.format("%s　%s～%s", reservationdate, startTime, endTime));
+        
+        dto.setStatus(entity.getStatus());
+        dto.setStaffname("ひろと");
+        dto.setMenuname(menuService.getMenuById(entity.getMenuid()).getName());
+        dto.setBillingfee(entity.getBillingfee());
+
+        String createdDate = entity.getCreatedat().format(DATE_FORMAT); // 〇月〇日
+        String createdTime = entity.getCreatedat().format(TIME_FORMAT); // 〇〇:〇〇
+
+        dto.setDisplaycreatedtime(String.format("%s　%s", createdDate, createdTime));
+        return dto;
     }
 
 
