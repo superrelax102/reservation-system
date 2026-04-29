@@ -33,6 +33,9 @@ public class ReservationService {
         // // 終了：14日後の 23:59:59.999...
         LocalDateTime endRange = today.plusDays(13).atTime(LocalTime.MAX);
 
+        // 1. 判定用の「現在時刻」を取得しておく
+        LocalDateTime now = LocalDateTime.now();
+
         // ReservationDBから該当期間の予約をすべて取得
         List<Reservation> allReservations = reservationRepository
                     .findByStartatBetweenOrderByStartatAsc(startRange, endRange);
@@ -54,6 +57,7 @@ public class ReservationService {
             // その日の予約だけをフィルタリング
             List<Reservation> dailyReservations = allReservations.stream()
                     .filter(r -> r.getStartat().toLocalDate().equals(targetDate))
+                    .filter(r -> "予約中".equals(r.getStatus()))
                     .toList();
 
             // 30分ずつ以下の処理を繰り返し
@@ -65,6 +69,10 @@ public class ReservationService {
                 LocalTime slotStart = current;
                 LocalTime slotEnd = current.plusMinutes(selectedDuration);
 
+                // 過去かどうかの判定
+                LocalDateTime slotDateTime = LocalDateTime.of(targetDate, slotStart);
+                boolean isPast = slotDateTime.isBefore(now);    
+
                 // その日の予約（dailyReservations）の中に、このスロットと重なるものが1つでもあるかチェック
                 boolean isReserved = dailyReservations.stream().anyMatch(res -> {
                     LocalTime resStart = res.getStartat().toLocalTime();
@@ -74,8 +82,8 @@ public class ReservationService {
 
                 slots.add(CalendarSlotDto.builder()
                     .startTime(current)
-                    .isAvailable(!isReserved)
-                    .statusLabel(isReserved ? "×" : "○")
+                    .isAvailable(!isReserved && !isPast)
+                    .statusLabel(isReserved || isPast ? "×" : "○")
                     .build());
                 current = current.plusMinutes(30);
             }
@@ -107,6 +115,14 @@ public class ReservationService {
         // リポジトリ経由で保存
         reservationRepository.save(reservation);
     }
+    
+    @Transactional
+    public void cancelReservation(Long reservationid) {
+        Reservation reservation = reservationRepository.findById(reservationid)
+            .orElseThrow(() -> new RuntimeException("予約が見つかりません。ID: " + reservationid));
+        reservation.setStatus("キャンセル");
+    }
+
 
     public List<ReservationResponseDto> getMyReservations(Long userid) {
         List<Reservation> reservations = reservationRepository.findByUserid(userid);

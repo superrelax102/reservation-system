@@ -27,11 +27,7 @@
             <span>[[${reservation.staffname}]]</span>
         </div>
 
-        <form th:action="@{regist-reservation}" method="POST">
-            <input type="hidden" id="username" name="username" value="まなちゃ">
-            <input type="hidden" name="date" th:value="${date}">
-            <input type="hidden" name="time" th:value="${time}">
-            <input type="hidden" name="menuid" th:value="${menuid}">
+        <form th:action="@{/reservations/{reservationid}/cancel(reservationid=${reservation.id})}" method="POST">
             <button type="submit" class="top-button">キャンセル（確定）</button>
         </form>
         <form th:action="@{/reservations}" method="GET">

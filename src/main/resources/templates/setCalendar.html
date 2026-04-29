@@ -33,7 +33,7 @@
                             <small th:text="${slot.startTime}"></small><br>
                             
                             <div th:if="${slot.isAvailable}">
-                                <form th:action="@{/confirm-reservation}" method="GET">
+                                <form th:action="@{/confirm-regist-reservation}" method="GET">
                                     <input type="hidden" name="username" th:value="${username}">
                                     <input type="hidden" name="date" th:value="${day.date}">
                                     <input type="hidden" name="time" th:value="${slot.startTime}">

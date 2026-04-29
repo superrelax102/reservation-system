@@ -40,8 +40,8 @@ public class ReservationController {
         return "setCalendar";
     }
 
-    @GetMapping("/confirm-reservation")
-    public String confirmReservation(@RequestParam String username, LocalDate date, LocalTime time, Long menuid, Model model) {
+    @GetMapping("/confirm-regist-reservation")
+    public String confirmRegistReservation(@RequestParam String username, LocalDate date, LocalTime time, Long menuid, Model model) {
         model.addAttribute("username", username);
         model.addAttribute("date", date);
         model.addAttribute("time", time);
@@ -51,7 +51,7 @@ public class ReservationController {
         model.addAttribute("menuname", menuResponseDto.getName());
 
 
-        return "confirmReservation";
+        return "confirmRegistReservation";
     }
 
     @PostMapping("/regist-reservation")
@@ -76,12 +76,18 @@ public class ReservationController {
         return "reservations";
     }    
 
-    @GetMapping("/reservations/{reservationid}/delete")
-    public String deleteResevation(@PathVariable Long reservationid, @RequestParam String username, @RequestParam Long userid, Model model) {
+    @GetMapping("/reservations/{reservationid}/cancel")
+    public String confirmCancelResevation(@PathVariable Long reservationid, @RequestParam String username, @RequestParam Long userid, Model model) {
         model.addAttribute("username", username);
         model.addAttribute("userid", userid);
         ReservationResponseDto reservation = reservationService.getMyReservationById(reservationid);
         model.addAttribute("reservation", reservation);
-        return "deleteReservation";
+        return "confirmCancelReservation";
+    }
+
+    @PostMapping("/reservations/{reservationid}/cancel")
+    public String cancelReservation(@PathVariable Long reservationid) {
+        reservationService.cancelReservation(reservationid);
+        return "redirect:/complete-reservation";
     }
 }
