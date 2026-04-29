@@ -28,7 +28,7 @@
                     <td th:text="${menu.formattedDuration}"></td>
                     <td th:text="${menu.formattedPrice}"></td>
                     <td>
-                        <form th:action="@{/set-calendar}" method="POST">
+                        <form th:action="@{/set-calendar}" method="GET">
                             <input type="hidden" id="username" name="username" value="まなちゃ">
                             <input type="hidden" name="menuid" th:value="${menu.id}">
                             <button type="submit">このメニューを選択</button>
@@ -37,7 +37,7 @@
                 </tr>
 
             </table>
-            <form th:action="@{/usertop}" method="POST">
+            <form th:action="@{/usertop}" method="GET">
                 <input type="hidden" id="username" name="username" value="まなちゃ">
                 <button type="submit" class="top-button-ret">トップ画面に戻る</button>
             </form>

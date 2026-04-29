@@ -7,7 +7,7 @@ import com.github.superrelax102.reservationsystem.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MenuController {
 	private final MenuService menuService;
 
-	@PostMapping("/select-menu")
+	@GetMapping("/select-menu")
     public String selectMenu(@RequestParam String username, Model model) {
         model.addAttribute("username", username);
         

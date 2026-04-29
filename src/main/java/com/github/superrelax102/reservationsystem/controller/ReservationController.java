@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,7 +23,7 @@ public class ReservationController {
     private final ReservationService reservationService;
     private final MenuService menuService;
 
-    @PostMapping("/set-calendar")
+    @GetMapping("/set-calendar")
     public String setCalendar(@RequestParam String username, Long menuid, Model model) {
         model.addAttribute("username", username);
         model.addAttribute("menuid", menuid);
@@ -39,7 +40,7 @@ public class ReservationController {
         return "setCalendar";
     }
 
-    @PostMapping("/confirm-reservation")
+    @GetMapping("/confirm-reservation")
     public String confirmReservation(@RequestParam String username, LocalDate date, LocalTime time, Long menuid, Model model) {
         model.addAttribute("username", username);
         model.addAttribute("date", date);
@@ -65,13 +66,22 @@ public class ReservationController {
         return "completeReservation";
     }
 
-    @PostMapping("/check-history")
-    public String postMethodName(@RequestParam String username, Long userid, Model model) {
+    @GetMapping("/reservations")
+    public String getResevations(@RequestParam String username, Long userid, Model model) {
         model.addAttribute("username", username);
         List<ReservationResponseDto> reservations = reservationService.getMyReservations(userid);
         model.addAttribute("reservations", reservations);
 
         
-        return "checkHistory";
+        return "reservations";
     }    
+
+    @GetMapping("/reservations/{reservationid}/delete")
+    public String deleteResevation(@PathVariable Long reservationid, @RequestParam String username, @RequestParam Long userid, Model model) {
+        model.addAttribute("username", username);
+        model.addAttribute("userid", userid);
+        ReservationResponseDto reservation = reservationService.getMyReservationById(reservationid);
+        model.addAttribute("reservation", reservation);
+        return "deleteReservation";
+    }
 }

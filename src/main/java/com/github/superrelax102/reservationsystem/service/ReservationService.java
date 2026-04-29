@@ -139,6 +139,13 @@ public class ReservationService {
         return dto;
     }
 
+    public ReservationResponseDto getMyReservationById(Long reservationid) {
+        Reservation reservation = reservationRepository.findById(reservationid)
+            .orElseThrow(() -> new RuntimeException("予約が見つかりません。ID: " + reservationid));
+        ReservationResponseDto dto = convertToDto(reservation);
+        return dto;
+    }
+
 
 
 }

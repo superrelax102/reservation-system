@@ -30,17 +30,16 @@
                     <td th:text="${reservation.billingfee}"></td>
                     <td th:text="${reservation.displaycreatedtime}"></td>
                     <td>
-                        <button type="submit">選択</button>
-                        <!-- <form th:action="@{/set-calendar}" method="POST">
+                        <form th:action="@{/reservations/{reservationid}/delete(reservationid=${reservation.id})}" method="GET">
                             <input type="hidden" id="username" name="username" value="まなちゃ">
-                            <input type="hidden" name="menuid" th:value="${menu.id}">
-                            <button type="submit">このメニューを選択</button>
-                        </form> -->
+                            <input type="hidden" id="userid" name="userid" value="1">
+                            <button type="submit">キャンセル</button>
+                        </form>
                     </td>
                 </tr>
 
             </table>
-            <form th:action="@{/usertop}" method="POST">
+            <form th:action="@{/usertop}" method="GET">
                 <input type="hidden" id="username" name="username" value="まなちゃ">
                 <button type="submit" class="top-button-ret">トップ画面に戻る</button>
             </form>

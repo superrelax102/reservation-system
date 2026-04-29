@@ -33,7 +33,7 @@
                             <small th:text="${slot.startTime}"></small><br>
                             
                             <div th:if="${slot.isAvailable}">
-                                <form th:action="@{/confirm-reservation}" method="POST">
+                                <form th:action="@{/confirm-reservation}" method="GET">
                                     <input type="hidden" name="username" th:value="${username}">
                                     <input type="hidden" name="date" th:value="${day.date}">
                                     <input type="hidden" name="time" th:value="${slot.startTime}">
@@ -51,7 +51,7 @@
             </tr>
         </tbody>
     </table>
-        <form th:action="@{/select-menu}" method="POST">
+        <form th:action="@{/select-menu}" method="GET">
         <input type="hidden" id="username" name="username" value="まなちゃ">
         <button type="submit" class="top-button-ret">メニュー選択に戻る</button>
 </body>
