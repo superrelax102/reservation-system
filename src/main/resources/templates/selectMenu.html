@@ -9,7 +9,7 @@
 <body>
     <header>
         <h1>
-            <span th:text="${username}">username</span>さん、こんにちは！
+            ユーザーID：<span th:text="${userid}">userid</span>
         </h1>
     </header>
     <main>
@@ -29,7 +29,6 @@
                     <td th:text="${menu.formattedPrice}"></td>
                     <td>
                         <form th:action="@{/set-calendar}" method="GET">
-                            <input type="hidden" id="username" name="username" value="まなちゃ">
                             <input type="hidden" name="menuid" th:value="${menu.id}">
                             <button type="submit">このメニューを選択</button>
                         </form>
@@ -38,7 +37,6 @@
 
             </table>
             <form th:action="@{/usertop}" method="GET">
-                <input type="hidden" id="username" name="username" value="まなちゃ">
                 <button type="submit" class="top-button-ret">トップ画面に戻る</button>
             </form>
     </main>

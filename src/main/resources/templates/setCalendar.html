@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <h1><span th:text="${username}">username</span>さん、こんにちは！</h1>
+        <h1>ユーザーID：<span th:text="${userid}">userid</span></h1>
         <p><span th:text="${menuname}">メニュー名</span>の予約日時を選んでください</p>
     </header>
 
@@ -34,7 +34,6 @@
                             
                             <div th:if="${slot.isAvailable}">
                                 <form th:action="@{/confirm-regist-reservation}" method="GET">
-                                    <input type="hidden" name="username" th:value="${username}">
                                     <input type="hidden" name="date" th:value="${day.date}">
                                     <input type="hidden" name="time" th:value="${slot.startTime}">
                                     <input type="hidden" name="menuid" th:value="${menuid}">
@@ -52,7 +51,6 @@
         </tbody>
     </table>
         <form th:action="@{/select-menu}" method="GET">
-        <input type="hidden" id="username" name="username" value="まなちゃ">
         <button type="submit" class="top-button-ret">メニュー選択に戻る</button>
 </body>
 </html>

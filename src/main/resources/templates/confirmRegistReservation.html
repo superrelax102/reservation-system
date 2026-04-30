@@ -15,10 +15,6 @@
         <p class="confirm-message">内容にお間違いがなければ<br>「確定」ボタンを押してください。</p>
         
         <div class="confirm-item">
-            <span>お名前</span>
-            <span>[[${username}]] 様</span>
-        </div>
-        <div class="confirm-item">
             <span>メニュー</span>
             <span>[[${menuname}]]</span>
         </div>
@@ -32,14 +28,12 @@
         </div>
 
         <form th:action="@{regist-reservation}" method="POST">
-            <input type="hidden" id="username" name="username" value="まなちゃ">
             <input type="hidden" name="date" th:value="${date}">
             <input type="hidden" name="time" th:value="${time}">
             <input type="hidden" name="menuid" th:value="${menuid}">
             <button type="submit" class="top-button">予約を確定する</button>
         </form>
         <form th:action="@{/set-calendar}" method="GET">
-            <input type="hidden" id="username" name="username" value="まなちゃ">
             <input type="hidden" name="menuid" th:value="${menuid}">
             <button type="submit" class="top-button-ret">日時選択に戻る</button>
         </form>

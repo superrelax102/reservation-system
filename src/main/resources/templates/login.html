@@ -7,8 +7,9 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <form th:action="@{/usertop}" method="GET">
-    <input type="hidden" id="username" name="username" value="まなちゃ">
-    <button type="submit" class="top-button">ログイン</button>
+    <form th:action="@{/usertop}" method="POST">
+        <input type="text" name="userid">
+        <button type="submit" class="top-button">ログイン</button>
+    </form>
 </body>
 </html>

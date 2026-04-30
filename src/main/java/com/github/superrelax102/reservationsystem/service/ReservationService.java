@@ -99,7 +99,7 @@ public class ReservationService {
     }
 
     @Transactional
-    public void saveReservation(String username, LocalDate date, LocalTime time, Long menuid) {
+    public void saveReservation(LocalDate date, LocalTime time, Long menuid) {
         Reservation reservation = new Reservation();
         // idを仮設定
         reservation.setStartat(LocalDateTime.of(date, time));

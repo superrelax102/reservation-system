@@ -3,24 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>予約システム | トップ画面</title>
+    <title>予約システム | ホーム画面</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
     <header>
         <h1>
-            <span th:text="${username}">username</span>さん、こんにちは！
+            ユーザーID：<span th:text="${userid}">userid</span>
         </h1>
     </header>
     <main>
         <form th:action="@{/select-menu}" method="GET">
-            <input type="hidden" id="username" name="username" value="まなちゃ">
             <button class="top-button">新規予約</button>
         </form>
 
         <form th:action="@{/reservations}" method="GET">
-            <input type="hidden" id="username" name="username" value="まなちゃ">
-            <input type="hidden" id="userid" name="userid" value="1">
             <button class="top-button">予約履歴一覧</button>
         </form>
     </main>
